@@ -11,14 +11,14 @@ import {DataTable} from "@/components/DataTable.tsx";
 
 export const List = (): JSX.Element => {
 
-    const [customers, setcustomers] = useState<UserType[]>([])
+    const [customers, setCustomers] = useState<UserType[]>([])
     const [loading, setLoading] = useState<boolean>(true)
 
     useEffect(() => {
         setLoading(true)
 
         http.get('/cms/customers')
-            .then(({data}) => setcustomers(data))
+            .then(({data}) => setCustomers(data))
             .catch(() => {})
             .finally(() => setLoading(false))
     }, [])
@@ -34,7 +34,7 @@ export const List = (): JSX.Element => {
                         setLoading(true)
                         http.delete(`cms/customers/${id}`)
                             .then(() => http.get('cms/customers'))
-                            .then(({data}) => setcustomers(data))
+                            .then(({data}) => setCustomers(data))
                             .catch(() => {})
                             .finally(() => setLoading(false))
                     },
@@ -52,7 +52,7 @@ export const List = (): JSX.Element => {
 
     return loading? <Loading/> : <Container>
         <Row>
-            <Col clasName = "bg-white py-3 my-3 rounded-2 shadow-sm">
+            <Col className = "bg-white py-3 my-3 rounded-2 shadow-sm">
                 <Row>
                     <Col>
                         <h1>Customers</h1>

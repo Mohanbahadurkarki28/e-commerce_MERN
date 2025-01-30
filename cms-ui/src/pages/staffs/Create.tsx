@@ -15,9 +15,9 @@ YupPassword(Yup)
 
     export const Create = (): JSX.Element => {
 
-    const navigate = useNavigate()
+        const navigate = useNavigate()
         const formik = useFormik({
-            initialValues:{
+            initialValues: {
                 name: '',
                 phone: '',
                 address: '',
@@ -26,7 +26,7 @@ YupPassword(Yup)
                 password: '',
                 confirmPassword: '',
 
-            }as UserFormData,
+            } as UserFormData,
             validationSchema: Yup.object({
                 name: Yup.string().required(),
                 phone: Yup.string().required(),
@@ -37,7 +37,7 @@ YupPassword(Yup)
                 confirmPassword: Yup.string().required().oneOf([Yup.ref('password')], 'password not confirmed'),
 
             }),
-            onSubmit:(data: UserFormData, {setSubmitting}) => {
+            onSubmit: (data: UserFormData, {setSubmitting}) => {
                 http.post('/cms/staffs', data)
                     .then(() => navigate('/staffs'))
                     .catch(({response}) => validationError(response, formik))
@@ -72,6 +72,4 @@ YupPassword(Yup)
                 </Col>
             </Row>
         </Container>
-
-        return<></>
 }

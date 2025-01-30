@@ -32,3 +32,5 @@ export const clearStorage = (key:string)=>{
 
 export const dtFormat = (dt:string, format:string = 'lll'):
     string => dayjs(dt).format(format)
+
+export const imgUrl=(filename:string):string=>`${env('API_URL')}/images/${filename}`

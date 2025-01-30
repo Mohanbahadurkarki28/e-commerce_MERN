@@ -7,8 +7,6 @@ export interface LoginData{
     email: string,
     password:string,
 }
-
-
 export interface UserFormData{
     name: string,
     email?: string,
@@ -53,6 +51,44 @@ export interface UserData{
     createdAt: string,
 
 }
+export interface CategoryData{
+    __v: number,
+    _id: string,
+    name:string,
+    status: boolean,
+    createdAt:string,
+    updatedAt: string,
+}
+export interface ProductData{
+    __v: number,
+    _id: string,
+    name:string,
+    summary:string,
+    description:string,
+    price:number,
+    discountedPrice:number,
+    categoryId:string,
+    brandId:string,
+    images:string[],
+    category:CategoryData,
+    brand:CategoryData,
+    status: boolean,
+    featured:boolean,
+    createdAt:string,
+    updatedAt: string,
+}
+export interface ProductFormData{
+    name:string,
+    summary:string,
+    description:string,
+    price:number,
+    discountedPrice:number,
+    categoryId:string,
+    brandId:string,
+    images?:FileList|null,
+    status: boolean,
+    featured:boolean,
+}
 
 export interface UserState {
     value: UserType,
@@ -63,3 +99,4 @@ export interface DataTableProps {
     data: any[],
     searchable?: string[],
 }
+

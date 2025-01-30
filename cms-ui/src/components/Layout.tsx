@@ -2,6 +2,7 @@ import "bootstrap/dist/css/bootstrap.min.css"
 import "@fortawesome/fontawesome-free/css/all.min.css"
 import "react-toastify/dist/ReactToastify.css";
 import "react-confirm-alert/src/react-confirm-alert.css"
+import "./Layout.css"
 
 
 import {Container, Navbar, Nav, NavDropdown, Button, Dropdown} from "react-bootstrap";
@@ -76,6 +77,11 @@ export const Layout= ()=> {
                             <NavLink to="/categories" className="nav-link">
                                 <i className="fa-solid fa-list me-2">  </i>Categories
                             </NavLink>
+
+                            <NavLink to="/products" className="nav-link">
+                                <i className="fa-solid fa-gifts me-2">  </i>Products
+                            </NavLink>
+
                         </Nav.Item>
                     </Nav>
                     <Nav className="ms-auto">

@@ -33,8 +33,8 @@ export const Edit = ():JSX.Element => {
 
         }),
         onSubmit:(data: UserFormData, {setSubmitting}) => {
-            http.patch(`/cms/staffs/${params.id}`, data)
-                .then(() => navigate('/staffs'))
+            http.patch(`/cms/products/${params.id}`, data)
+                .then(() => navigate('/products'))
                 .catch(({response}) => validationError(response, formik))
                 .finally(() => setSubmitting(false))
         }
@@ -42,7 +42,7 @@ export const Edit = ():JSX.Element => {
 
     useEffect(() => {
         setLoading(true)
-        http.get(`/cms/staffs/${params.id}`)
+        http.get(`/cms/products/${params.id}`)
             .then(({data})=> setUser(data))
             .catch(() => {})
             .finally(() => setLoading(false))

@@ -1,8 +1,8 @@
-import {Container, Row, Col, Table, Button} from "react-bootstrap";
+import {Container, Row, Col, Button} from "react-bootstrap";
 import {useEffect, useState} from "react";
 import {UserType} from "@/lib/types.ts";
 import http from "@/http";
-import {Loading, NoData} from "@/components";
+import {Loading} from "@/components";
 import {Link} from "react-router-dom";
 import {dtFormat} from "@/lib/functions.ts";
 import {confirmAlert} from "react-confirm-alert"
@@ -52,7 +52,7 @@ export const List = (): JSX.Element => {
 
     return loading? <Loading/> : <Container>
         <Row>
-            <Col clasName = "bg-white py-3 my-3 rounded-2 shadow-sm">
+            <Col className = "bg-white py-3 my-3 rounded-2 shadow-sm">
                 <Row>
                     <Col>
                         <h1>Categories</h1>
@@ -64,6 +64,7 @@ export const List = (): JSX.Element => {
                 </Link>
             </Col>
                 </Row>
+            </Col>
                 <Row>
                     <Col>
                         <DataTable searchable={['Name']} data={categories.map(category => {
@@ -85,8 +86,6 @@ export const List = (): JSX.Element => {
                         })} />
                     </Col>
                 </Row>
-            </Col>
         </Row>
-
     </Container>
 }

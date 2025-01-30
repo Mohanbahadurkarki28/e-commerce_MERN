@@ -1,24 +1,24 @@
 import {Container, Row, Col, Button} from "react-bootstrap";
 import {useEffect, useState} from "react";
-import {UserType} from "@/lib/types.ts";
 import http from "@/http";
 import {Loading} from "@/components";
 import {Link} from "react-router-dom";
-import {dtFormat} from "@/lib/functions.ts";
+import {dtFormat, imgUrl} from "@/lib/functions.ts";
 import {confirmAlert} from "react-confirm-alert"
 import {DataTable} from "@/components/DataTable.tsx";
+import {ProductData} from "@/lib/interfaces.ts";
 
 
 export const List = (): JSX.Element => {
 
-    const [staffs, setStaffs] = useState<UserType[]>([])
+    const [products, setProducts] = useState<ProductData[]>([])
     const [loading, setLoading] = useState<boolean>(true)
 
     useEffect(() => {
         setLoading(true)
 
-        http.get('/cms/staffs')
-            .then(({data}) => setStaffs(data))
+        http.get('/cms/products')
+            .then(({data}) => setProducts(data))
             .catch(() => {})
             .finally(() => setLoading(false))
     }, [])
@@ -32,9 +32,9 @@ export const List = (): JSX.Element => {
                     label: 'Yes',
                     onClick: () => {
                         setLoading(true)
-                        http.delete(`cms/staffs/${id}`)
-                            .then(() => http.get('cms/staffs'))
-                            .then(({data}) => setStaffs(data))
+                        http.delete(`cms/products/${id}`)
+                            .then(() => http.get('cms/products'))
+                            .then(({data}) => setProducts(data))
                             .catch(() => {})
                             .finally(() => setLoading(false))
                     },
@@ -55,11 +55,11 @@ export const List = (): JSX.Element => {
             <Col className = "bg-white py-3 my-3 rounded-2 shadow-sm">
                 <Row>
                     <Col>
-                        <h1>Staffs</h1>
+                        <h1>Products</h1>
                     </Col>
 
             <Col xs="auto">
-                <Link to= "/staffs/create" className="btn btn-dark">
+                <Link to= "/products/create" className="btn btn-dark">
                     <i className="fa-solid fa-plus me-2"></i> Add
                 </Link>
             </Col>
@@ -67,21 +67,24 @@ export const List = (): JSX.Element => {
             </Col>
                 <Row>
                     <Col>
-                        <DataTable searchable={['Name', "Email", "Address"]} data={staffs.map(staff => {
+                        <DataTable searchable={['Name']} data={products.map(product => {
                             return{
-                                'Name': staff?.name,
-                                'Email': staff?.email,
-                                'Phone': staff?.phone,
-                                'Address': staff?.address,
-                                'Status': staff?.status? 'Active': 'Inactive',
-                                'Created At': dtFormat(staff!.createdAt),
-                                'Updated At': dtFormat(staff!.updatedAt),
+                                'Name': product.name,
+                                'Category':product.category?.name,
+                                'Brand':product.brand?.name,
+                                'Price':`Rs. ${product.price}`,
+                                'Dis. Price':`Rs. ${product.discountedPrice}`,
+                                'Image':<img src={imgUrl(product.images[0])}className="img-sm"/>,
+                                'Status': product.status? 'Active': 'Inactive',
+                                'Featured': product.featured? 'Yes': 'No',
+                                'Created At': dtFormat(product!.createdAt),
+                                'Updated At': dtFormat(product!.updatedAt),
                                 'Actions': <>
-                                    <Link to={`/staffs/${staff?._id}`} className="btn btn-dark btn-sm me-2">
+                                    <Link to={`/products/${product?._id}`} className="btn btn-dark btn-sm me-2">
                                         <i className="fa-solid fa-edit me-2"></i>Edit
                                     </Link>
                                     <Button type = "button" variant = "danger" size="sm"
-                                            onClick={() => handleDelete(staff!._id)}>
+                                            onClick={() => handleDelete(product!._id)}>
                                         <i className="fa-solid fa-times me-2"></i>Delete
                                     </Button>
                                 </>
