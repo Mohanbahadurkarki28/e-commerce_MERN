@@ -29,7 +29,9 @@ export interface InputFieldProps {
     name: string,
     label: string,
     type?: string,
-    as?: ElementType<any, keyof IntrinsicElements> | undefined
+    as?: ElementType<any, keyof IntrinsicElements> | undefined,
+    accept?: string,
+    multiple?: boolean
 }
 
 export interface SubmitBtnProps {
@@ -85,7 +87,7 @@ export interface ProductFormData{
     discountedPrice:number,
     categoryId:string,
     brandId:string,
-    images?:FileList|null,
+    images?:File[]|null,
     status: boolean,
     featured:boolean,
 }
@@ -99,4 +101,49 @@ export interface DataTableProps {
     data: any[],
     searchable?: string[],
 }
+export interface SelectOption {
+    label: string
+    value:string
+}
+
+export interface SelectFieldProps{
+    formik: any,
+    data: SelectOption[],
+    name: string,
+    label: string
+}
+
+export interface ReviewData{
+    __v: number,
+    _id: string,
+    user:UserData,
+    product: ProductData,
+    comment: string,
+    rating: number,
+    createdAt:string,
+    status:boolean,
+    updatedAt: string,
+}
+interface DetailData{
+    __v: number,
+    _id: string,
+    product: ProductData,
+    qty: string,
+    price: number,
+    total: number,
+    createdAt:string,
+    updatedAt: string,
+
+}
+export interface OrderData{
+    __v: number,
+    _id: string,
+    user:UserData,
+    details: DetailData[],
+    createdAt:string,
+    status: string,
+    updatedAt: string,
+}
+
+
 

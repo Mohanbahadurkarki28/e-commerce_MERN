@@ -62,6 +62,7 @@ export const Layout= ()=> {
                 <Navbar.Collapse>
                     <Nav>
                         <Nav.Item className="d-flex align-items-center">
+                            
                             <NavLink to="/staffs" className="nav-link">
                                 <i className="fa-solid fa-users me-2">  </i>Staffs
                             </NavLink>
@@ -80,6 +81,12 @@ export const Layout= ()=> {
 
                             <NavLink to="/products" className="nav-link">
                                 <i className="fa-solid fa-gifts me-2">  </i>Products
+                            </NavLink>
+                            <NavLink to="/reviews" className="nav-link">
+                                <i className="fa-solid fa-comment me-2">  </i>Reviews
+                            </NavLink>
+                            <NavLink to="/orders" className="nav-link">
+                                <i className="fa-solid fa-shopping-basket me-2">  </i>Orders
                             </NavLink>
 
                         </Nav.Item>

@@ -44,6 +44,11 @@ export const AppRouter =():JSX.Element => {
                     <Route path="create" element ={<PrivateRoute element={<pages.Products.Create />} />}/>
                     <Route path=":id" element ={<PrivateRoute element={<pages.Products.Edit />} />}/>
                 </Route>
+
+                <Route path="reviews" element ={<PrivateRoute element={<pages.Review.List />} />}/>
+                <Route path="orders" element ={<PrivateRoute element={<pages.Orders.List />} />}/>
+
+
                 
 
 

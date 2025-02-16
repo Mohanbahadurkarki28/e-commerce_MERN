@@ -1,14 +1,16 @@
 import {useFormik} from "formik";
-import {CategoryData, ProductFormData} from "@/lib/interfaces.ts";
+import {CategoryData, ProductFormData, SelectOption} from "@/lib/interfaces.ts";
 import * as Yup from "yup";
 import http from "@/http";
 import {validationError} from "@/lib/functions.ts";
 import YupPassword from "yup-password";
 import {useNavigate} from "react-router-dom";
 import {Col, Container, Form, Row} from "react-bootstrap";
-import {InputField, SubmitBtn} from "@/components";
+import {InputField, Loading, SubmitBtn} from "@/components";
 import {StatusSelect} from "@/components/StatusSelect.tsx";
 import {useEffect, useState} from "react";
+import {SelectField} from "@/components/SelectField.tsx";
+import {FeaturedSelect} from "@/components/FeaturedSelect.tsx";
 
 YupPassword(Yup)
 
@@ -47,7 +49,8 @@ YupPassword(Yup)
                 featured: Yup.boolean().required(),
                 images: Yup.mixed()
                     .test('imgCount', 'choose at least one  image', (list: any) =>
-                        list != null && list.length > 0)
+                       /* list != null && list.length > 0)*/
+                    list && list.length >0)
                     .test('imgType', 'all files must be valid image', (list: any) => {
                         if (list != null) {
                             for (let img of list) {
@@ -98,7 +101,7 @@ YupPassword(Yup)
                 .catch()
                 .finally(() => setLoading(false))
         }, []);
-        return <Container>
+        return loading ? <Loading/>: <Container>
             <Row>
                 <Col className="bg-white py-3 my-3 rounded-2 shadow-sm">
                     <Row>
@@ -115,7 +118,29 @@ YupPassword(Yup)
                                 <InputField formik={formik} name="price" label="Price" type="number"/>
                                 <InputField formik={formik} name="discountedPrice" label="DiscountedPrice"
                                             type="number"/>
+                                <InputField formik={formik} name="images" label="Images"
+                                            type="file" accept="image/*" multiple/>
 
+                                {formik.values.images?.length>0 && <Row>
+                                    {formik.values.images?.map(file=><Col md="3" className="mb-3">
+                                        <img src={URL.createObjectURL(file)} className="img-fluid"/>
+                                    </Col>)}
+                                </Row>}
+                                <SelectField formik={formik} data={categories.map(category=>{
+                                    return {
+                                        label:category.name,
+                                        value:category._id,
+                                    } as SelectOption
+                                })} name="categoryId" label="Category"/>
+
+                                <SelectField formik={formik} data={brands.map(brand=>{
+                                    return {
+                                        label:brand.name,
+                                        value:brand._id,
+                                    } as SelectOption
+                                })} name="brandId" label="Brand"/>
+                                
+                                <FeaturedSelect formik={formik}/>
                                 <StatusSelect formik={formik}/>
                                 <SubmitBtn disabled={formik.isSubmitting}></SubmitBtn>
 

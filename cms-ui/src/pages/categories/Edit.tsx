@@ -64,7 +64,7 @@ export const Edit = ():JSX.Element => {
                 <Row>
                     <Col>
                         <Form onSubmit={formik.handleSubmit}>
-                            <InputField formik={formik} name="name" label="Name"/>
+                            <InputField formik={formik} name="name" label="Name" type="text"/>
 
                             <StatusSelect formik={formik} />
 
